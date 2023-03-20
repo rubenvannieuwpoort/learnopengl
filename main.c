@@ -3,6 +3,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#define START_WIDTH 640
+#define START_HEIGHT 480
+
 void error_callback(int error, const char* description) {
 	fprintf(stderr, "Error: %s\n", description);
 }
@@ -25,7 +28,7 @@ int main(void) {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
  
-	GLFWwindow* window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(START_WIDTH, START_HEIGHT, "Simple example", NULL, NULL);
 	if (!window) {
 		fprintf(stderr, "Failed to create GLFW window\n");
 		glfwTerminate();
@@ -35,6 +38,8 @@ int main(void) {
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); 
 	glfwMakeContextCurrent(window);
+
+	glViewport(0, 0, START_WIDTH, START_HEIGHT);
 
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
@@ -52,6 +57,6 @@ int main(void) {
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
-	
+
 	return 0;
 }
